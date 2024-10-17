@@ -1,23 +1,20 @@
 <?php
 
 class Database{
-    private $host = "localhost";
-    private $db_name = "farmacia";
-    private $username = "root";
-    private $password = "";
+    private $host = "LENOVONATHA";
+    private $db_name = "ROGIL";
+    private $username = "sa";
+    private $password = "1234";
     public $conn;
 
-    public function getConecction(){
-        $this->conn = null;
-
+    public function __construct(){
         try{
             $this->conn = new PDO("sqlsrv:Server=$this->host;Database=$this->db_name", $this->username, $this->password);
-            $this->conn->exec("SET NAMES utf8");
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }catch (PDOException $exception){
             echo "Error de conexión ". $exception->getMessage();
         }
         return $this->conn;
     }
 }
-
 ?>
