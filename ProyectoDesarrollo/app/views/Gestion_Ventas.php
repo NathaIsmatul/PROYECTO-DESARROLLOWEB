@@ -5,7 +5,7 @@ require_once "parte_superior.php";
 <div class="container-fluid">
 
     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-        <h1 class="h3 mb-3 text-gray-800">Gestion de Usuarios</h1>
+        <h1 class="h3 mb-3 text-gray-800">Gestion de Ventas</h1>
     </nav>
 
     <!-- Content Row -->
@@ -15,10 +15,7 @@ require_once "parte_superior.php";
 
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-sm-flex align-items-center justify-content-between mb-4">
-                    <h6 class="m-0 font-weight-bold text-primary">Listado de Usuarios</h6>
-                    <Button class=" btn btn-sm btn-primary shadow-sm">
-                        <i class="bx bxs-file-plus"></i>Agregar Usuario
-                    </Button>
+                    <h6 class="m-0 font-weight-bold text-primary">Ventas Realizadas</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -26,12 +23,11 @@ require_once "parte_superior.php";
                             <thead>
                                 <tr>
                                     <th>ID</th>    
-                                    <th>UserName</th>
-                                    <th>Nombre</th>
-                                    <th>Apellido</th>
-                                    <th>Contraseña</th>
-                                    <th>Fecha de Registro</th>
-                                    <th>Perfil</th>
+                                    <th>Fecha</th>
+                                    <th>Cliente</th>
+                                    <th>Telefono</th>
+                                    <th>Total</th>
+                                    <th>Vendedor</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -41,7 +37,6 @@ require_once "parte_superior.php";
                                         <!------llamada de datos ----->
 
                                         <td> <!--Esta debe quedar de ultimo para las acciones  ---->
-                                            <button type="button" class="btn btn-sm btn-circle btn-warning bx bx-edit"></button>
                                             <button type="button" class="btn btn-sm btn-circle btn-danger bx bx-trash"></button>
                                         </td>
                                     </tr>
