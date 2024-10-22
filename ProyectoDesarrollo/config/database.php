@@ -1,10 +1,10 @@
 <?php
 
 class Database{
-    private $host = "LENOVONATHA";
+    private $host = "ERWIN\SQLEXPRESS";
     private $db_name = "ROGIL";
     private $username = "sa";
-    private $password = "1234";
+    private $password = "francisco13";
     public $conn;
 
     public function __construct(){
