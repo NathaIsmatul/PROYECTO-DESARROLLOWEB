@@ -1,7 +1,16 @@
 <?php
-require_once "parte_superior.php"
+require_once "parte_superior.php";
+
+require_once '../controllers/ProductosController.php';
+
+$ProductosController = new ProductController();
+
+$products = $ProductosController->index();
+
+
 ?>
-                <!-- Begin Page Content -->
+
+<!-- Begin Page Content -->
 <div class="container-fluid">
 
     <!-- Page Heading -->
@@ -23,32 +32,40 @@ require_once "parte_superior.php"
                                 <tr>    
                                     <th>Código</th>
                                     <th>Nombre de Producto</th>
-                                    <th>Descripcion</th>  <!-- Esta columna está oculta, pero aún debe estar presente en el <thead> -->
-                                    <th>Tipo de Producto</th>  <!-- Esta columna está oculta, pero aún debe estar presente en el <thead> -->
+                                    <th>Descripcion</th>
+                                    <th>Tipo de Producto</th>
                                     <th>Laboratorio</th>
                                     <th>Costo</th>
                                     <th>Precio de venta</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Aquí se llenará la tabla dinámicamente -->
-                            </tbody>
+                                <?php foreach ($products as $product): ?>
+                                    <tr>
+                                        <td><?php echo $product['CODIGO_PRODUCTO']; ?></td>
+                                        <td><?php echo $product['NOMBRE_PRODUCTO']; ?></td>
+                                        <td><?php echo $product['DESCRIPCION']; ?></td>
+                                        <td><?php echo$product['TIPO_PRODUCTO']; ?></td>
+                                        <td><?php echo $product['LABORATORIO']; ?></td>
+                                        <td><?php echo $product['COSTO']; ?></td>
+                                        <td><?php echo $product['PRECIO_VENTA']; ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                        </tbody>
+
                         </table>
                     </div>
                 </div>
             </div>
-
 
         </div>
 
         <!-- Donut Chart -->
         <div class="col-xl-4 col-lg-5">
             <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Detalles del Producto</h6>
                 </div>
-                <!-- Card Body -->
                 <div class="card-body" id="productoDetalles">
                     <!-- Aquí se llenará la información del producto -->
                 </div>
@@ -62,5 +79,5 @@ require_once "parte_superior.php"
 </div>
 
 <?php
-require_once "parte_inferior.php"
+require_once "parte_inferior.php";
 ?>
