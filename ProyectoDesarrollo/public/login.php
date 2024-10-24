@@ -11,23 +11,23 @@
 </head>
 <body>
     <div class="wrapper">
-    <div class="inner">
-        <form method="POST" action="../app/controllers/loginController.php">  <!-- Agregado para levantar el FRONTEND -->
-            <h3>Inicio de</h3>
-            <h3>Sesión</h3>
-            <div class="form-wrapper">
-                <input type="text" name="nombre" id="nombreInput" placeholder="Usuario" class="form-control">
-                <i class="zmdi zmdi-account"></i>
-            </div>
-            <div class="form-wrapper">
-                <input type="password" name="contrasena" placeholder="Contraseña" class="form-control">
-                <i class="zmdi zmdi-lock"></i>
-            </div>
-			<button type="submit">Ingresar <i class="zmdi zmdi-arrow-right"></i></button>
-            <div class="user-type" id="userType">
-            </div>
-        </form>
+        <div class="inner">
+            <form method="POST" action="../app/controllers/loginController.php">  <!-- Agregado para levantar el FRONTEND -->
+                <h3>Inicio de</h3>
+                <h3>Sesión</h3>
+                <div class="form-wrapper">
+                    <input type="text" name="nombre" id="nombreInput" placeholder="Usuario" class="form-control">
+                    <i class="zmdi zmdi-account"></i>
+                </div>
+                <div class="form-wrapper">
+                    <input type="password" name="contrasena" placeholder="Contraseña" class="form-control">
+                    <i class="zmdi zmdi-lock"></i>
+                </div>
+                <button type="submit">Ingresar <i class="zmdi zmdi-arrow-right"></i></button>
+                <div class="user-type" id="userType">
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 </body>
 </html>
