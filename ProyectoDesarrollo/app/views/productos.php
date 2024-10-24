@@ -24,7 +24,7 @@ $products = $ProductosController->index();
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-sm-flex align-items-center justify-content-between mb-4">
                     <h6 class="m-0 font-weight-bold text-primary">Listado de Productos</h6>
-                    <Button class=" btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addModal">
+                    <Button class=" btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addProd">
                         <i class="bx bxs-file-plus"></i>Agregar Productos
                     </Button>
                 </div>
@@ -78,6 +78,7 @@ function setProductName(button) {
     document.getElementById('nombreProducto').textContent = productName;
 }
 </script>
+
 <!-- /.container-fluid -->
 <!-- Formulario para agregar productos-->
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="BotonAgregar"
