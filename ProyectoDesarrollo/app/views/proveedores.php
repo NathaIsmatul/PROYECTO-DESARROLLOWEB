@@ -72,12 +72,12 @@ $provees = $ProveeController->index();
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="BotonAgregar">Agregar Producto</h5>
+                    <h5 class="modal-title" id="BotonAgregar">Agregar Proveedores</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Datos del proveedor</div>
+                <div class="modal-body text-center">Datos del proveedor</div>
                     <form class="user">
                         <div>
                             <div class="form-group"> Nombre
@@ -96,9 +96,7 @@ $provees = $ProveeController->index();
                                 <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="provCorreo"
                                     placeholder="E-mail">
                             </div>
-                            
                         </div>
-
                     </form>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
@@ -107,7 +105,6 @@ $provees = $ProveeController->index();
             </div>
         </div>
     </div>
-
 </div>
 <?php 
 require_once "parte_inferior.php"
