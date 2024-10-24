@@ -58,8 +58,18 @@ $products = $ProductosController->index();
                                                 data-toggle="modal" data-target="#addLotes"
                                                 data-nombre="<?php echo $product['NOMBRE_PRODUCTO']; ?>" 
                                                 onclick="setProductName(this)"></button>
-                                            <button type="button" class="btn btn-sm btn-circle btn-warning bx bx-edit"></button>
-                                            <button type="button" class="btn btn-sm btn-circle btn-danger bx bx-trash"></button>
+
+                                            <button type="button" class="btn btn-sm btn-circle btn-warning bx bx-edit"
+                                                data-toggle="modal" data-target="#editProd"
+                                                data-nombre="<?php echo $product['NOMBRE_PRODUCTO']; ?>" 
+                                                data-descripcion="<?php echo $product['DESCRIPCION']; ?>" 
+                                                data-tipo="<?php echo $product['TIPO_PRODUCTO']; ?>" 
+                                                data-laboratorio="<?php echo $product['LABORATORIO']; ?>" 
+                                                data-costo="<?php echo $product['COSTO']; ?>" 
+                                                data-precio="<?php echo $product['PRECIO_VENTA']; ?>" 
+                                                onclick="editProduct(this)"></button>
+                                            <button type="button" class="btn btn-sm btn-circle btn-danger bx bx-trash"
+                                            data-toggle="modal" data-target="#deleteProd"></button>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -72,16 +82,10 @@ $products = $ProductosController->index();
     </div>
 </div>
 
-<script>
-function setProductName(button) {
-    const productName = button.getAttribute('data-nombre');
-    document.getElementById('nombreProducto').textContent = productName;
-}
-</script>
 
 <!-- /.container-fluid -->
 <!-- Formulario para agregar productos-->
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="BotonAgregar"
+<div class="modal fade" id="addProd" tabindex="-1" role="dialog" aria-labelledby="BotonAgregar"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -128,8 +132,16 @@ function setProductName(button) {
     </div>
 </div>
 
+<!-- Formuario para tomar nombre del producto-->
+<script>
+function setProductName(button) {
+    const productName = button.getAttribute('data-nombre');
+    document.getElementById('nombreProducto').textContent = productName;
+}
+</script>
+
 <!-- Formulario para agregar lotes-->
-<div class="modal fade" id="addLotes" tabindex="-1" role="dialog" aria-labelledby="BotonAgregar"
+<div class="modal fade" id="addLotes" tabindex="-1" role="dialog" aria-labelledby="BotonAgregarL"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -164,6 +176,93 @@ function setProductName(button) {
     </div>
 </div>
 
+<!-- Funcion para editar productos -->
+<script>
+function editProduct(button) {
+    const nombre = button.getAttribute('data-nombre');
+    const descripcion = button.getAttribute('data-descripcion');
+    const tipo = button.getAttribute('data-tipo');
+    const laboratorio = button.getAttribute('data-laboratorio');
+    const costo = button.getAttribute('data-costo');
+    const precio = button.getAttribute('data-precio');
+
+    document.getElementById('editNombre').value = nombre;
+    document.getElementById('editDescrip').value = descripcion;
+    document.getElementById('editTipo').value = tipo;
+    document.getElementById('editLab').value = laboratorio;
+    document.getElementById('editCosto').value = costo;
+    document.getElementById('editVenta').value = precio;
+}
+
+</script>
+
+<!-- Formulario para editar productos Btn-->
+<div class="modal fade" id="editProd" tabindex="-1" role="dialog" aria-labelledby="BotonEditar"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="BotonEditar">Editar Producto</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">Datos del Producto</div>
+                    <form class="user">
+                        <div>
+                            <div class="form-group"> Nombre
+                                <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="editNombre"
+                                    placeholder="Nombre del Producto">
+                            </div>
+                            <div class="form-group"> Descripcion
+                                <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="editDescrip"
+                                    placeholder="Descripcion del Producto">
+                            </div>
+                            <div class="form-group"> Tipo de Producto
+                                <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="editTipo"
+                                    placeholder="Tipo">
+                            </div>
+                            <div class="form-group"> Laboratorio
+                                <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="editLab"
+                                    placeholder="Laboratorio de Origen">
+                            </div>
+                            <div class="form-group"> Costo
+                                <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="editCosto"
+                                    placeholder="Ingrese Costo">
+                            </div>
+                            <div class="form-group"> Precio de Venta
+                                <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="editVenta"
+                                    placeholder="Ingrese Precio">
+                        </div>
+                    </form>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" action="" >Editar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Btn alerta para eliminar producto-->
+<div class="modal fade" id="deleteProd" tabindex="-1" role="dialog" aria-labelledby="botonEliminar"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">¿Estas seguro de realizar esta accion?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Selecciona "Confirmar" para eliminar el producto deseado </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-danger" action="">Confirmar</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <?php
 require_once "parte_inferior.php";
