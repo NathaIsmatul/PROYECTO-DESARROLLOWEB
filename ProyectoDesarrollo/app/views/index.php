@@ -20,13 +20,51 @@ require_once "parte_superior.php"
 </nav>
 <!-- End of Topbar -->
 
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="container-fluid">
+
+    <h1 class="h3 mb-3 text-gray-800">Catalogo</h1>
+
+    <!-- Content Row -->
+    <div class="row">
+
+        <div class="col-xl-12 col-lg-7">
+
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-sm-flex align-items-center justify-content-between mb-4">
+                    <h6 class="m-0 font-weight-bold text-primary">Lotes en Riesgo</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>    
+                                    <th>Producto</th>
+                                    <th>Stock</th> 
+                                    <th>Laboratorio</th> 
+                                    <th>Proveedor</th>
+                                    <th>Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
+
+<!-- Modelo Cerrar Sesion-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="ModalCerrar"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">¿Estas seguro de Cerrar Sesion?</h5>
+                    <h5 class="modal-title" id="ModalCerrar">¿Estas seguro de Cerrar Sesion?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -40,9 +78,6 @@ require_once "parte_superior.php"
         </div>
     </div>
 
-<div class="container">
-    <h1>Contenido Principal</h1>
-</div>
 <?php 
 require_once "parte_inferior.php"
 ?>
