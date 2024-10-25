@@ -1,6 +1,8 @@
 <?php 
 require_once "parte_superior.php";
-
+require_once '../controllers/perfilControllers.php';
+$PerfilController = new PerfilController();
+$perfil = $PerfilController->index();
 ?>
 <div class="container-fluid">
 
@@ -31,20 +33,20 @@ require_once "parte_superior.php";
                                 </tr>
                             </thead>
                             <tbody>
-                                <!----foreach --->
+                                <?php foreach ($perfil as $perfil): ?>
                                     <tr>
-                                        <!------llamada de datos ----->
-
+                                        <td><?php echo $perfil['CODIGO_PERFIL']; ?></td>
+                                        <td><?php echo $perfil['DESCRIPCION']; ?></td>
                                         <td> <!--Esta debe quedar de ultimo para las acciones  ---->
                                             <button type="button" class="btn btn-sm btn-circle btn-warning bx bx-edit"
                                                 data-toggle="modal" data-target="#editPerfil"
-                                                data-perfil="<?php echo $provee['PERFIL']; ?>" 
-                                                onclick="editProduct(this)"></button>
+                                                data-perfil="<?php echo $perfil['DESCRIPCION']; ?>" 
+                                                onclick="editPerfil(this)"></button>
                                             <button type="button" class="btn btn-sm btn-circle btn-danger bx bx-trash"
                                                 data-toggle="modal" data-target="#deletePerfil"></button>
                                         </td>
                                     </tr>
-                                <!-- fin de foreach---->
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -52,9 +54,7 @@ require_once "parte_superior.php";
             </div>
 
         </div>
-
     </div>
-
 </div>
 <!-- /.container-fluid -->
  <!-- Agregar Proveedores - Btn -->
@@ -87,11 +87,10 @@ require_once "parte_superior.php";
 </div>
 
 <script>
-function editProduct(button) {
+function editPerfil(button) {
     const perfil = button.getAttribute('data-perfil');
     document.getElementById('editperfil').value = perfil;
 }
-
 </script>
 
 <!-- Formulario para editar productos Btn-->
@@ -109,7 +108,7 @@ function editProduct(button) {
                     <form class="user">
                         <div>
                             <div class="form-group"> Perfil
-                                <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="editPerfil"
+                                <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="editperfil"
                                     placeholder="Ingrese el nuevo perfil">
                             </div>
                         </div>

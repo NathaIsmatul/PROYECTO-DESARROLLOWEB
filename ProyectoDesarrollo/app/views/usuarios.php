@@ -1,5 +1,8 @@
 <?php 
 require_once "parte_superior.php";
+require_once '../controllers/userController.php';
+$UserController = new UserController();
+$user = $UserController->index();
 
 ?>
 <div class="container-fluid">
@@ -31,23 +34,34 @@ require_once "parte_superior.php";
                                     <th>Apellido</th>
                                     <th>Contraseña</th>
                                     <th>Fecha de Registro</th>
-                                    <th>Perfil</th>
+                                    <th>Perfil de Usuario</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <!----foreach --->
+                                <?php foreach ($user as $usuario): ?>
                                     <tr>
-                                        <!------llamada de datos ----->
-
+                                        <td><?php echo $usuario['CODIGO_USUARIO']; ?></td>
+                                        <td><?php echo $usuario['USUARIO']; ?></td>
+                                        <td><?php echo $usuario['NOMBRE']; ?></td>
+                                        <td><?php echo $usuario['APELLIDO']; ?></td>
+                                        <td><?php echo $usuario['CLAVE']; ?></td>
+                                        <td><?php echo $usuario['FECHA_REGISTRO']; ?></td>
+                                        <td><?php echo $usuario['DES_PERFIL']; ?></td>
                                         <td> <!--Esta debe quedar de ultimo para las acciones  ---->
                                             <button type="button" class="btn btn-sm btn-circle btn-warning bx bx-edit"
-                                                data-toggle="modal" data-target="#editUser"></button>
+                                                data-toggle="modal" data-target="#editUser"
+                                                data-usuario="<?php echo $usuario['USUARIO']; ?>" 
+                                                data-nombre="<?php echo $usuario['NOMBRE']; ?>" 
+                                                data-apellido="<?php echo $usuario['APELLIDO']; ?>" 
+                                                data-clave="<?php echo $usuario['CLAVE']; ?>"
+                                                data-perfil="<?php echo $usuario['DES_PERFIL']; ?>"  
+                                                onclick="editProduct(this)"></button>
                                             <button type="button" class="btn btn-sm btn-circle btn-danger bx bx-trash"
                                                 data-toggle="modal" data-target="#deleteUser"></button>
                                         </td>
                                     </tr>
-                                <!-- fin de foreach---->
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -111,19 +125,17 @@ require_once "parte_superior.php";
 
 <script>
 function editProduct(button) {
-    const username = button.getAttribute('data-name');
+    const username = button.getAttribute('data-usuario');
     const nombre = button.getAttribute('data-nombre');
     const apellido = button.getAttribute('data-apellido');
-    const contraseña = button.getAttribute('data-pass');
-    const Exp = button.getAttribute('data-exp')
+    const contraseña = button.getAttribute('data-clave');
     const perfil = button.getAttribute('data-perfil');;
 
     document.getElementById('editName').value = username;
     document.getElementById('editNombre').value = nombre;
     document.getElementById('editApellido').value = apellido;
     document.getElementById('editPass').value = contraseña;
-    document.getElementById('editFecha').value = Exp;
-    document.getElementById('editPerfil').value = Perfil;
+    document.getElementById('editPerfil').value = perfil;
 }
 
 </script>
@@ -157,10 +169,6 @@ function editProduct(button) {
                             <div class="form-group"> Contraseña
                                 <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="editPass"
                                     placeholder="Ingrese Contraseña">
-                            </div>
-                            <div class="form-group"> Fecha de Registro
-                                <input type="date" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="editFecha"
-                                    placeholder="dd/mm/aaaa">
                             </div>
                             <div class="form-group"> Perfil
                                 <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="editPerfil"

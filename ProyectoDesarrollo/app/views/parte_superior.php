@@ -39,7 +39,9 @@
                 </div>
                 <div class="sidebar-brand-text mx-3">Farmacia Y Drogeria Rogil</div>
             </a>
-
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
