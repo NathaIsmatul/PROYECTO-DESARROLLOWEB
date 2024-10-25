@@ -50,13 +50,19 @@ $provees = $ProveeController->index();
                                             <td>
                                                 <button type="button" class="btn btn-sm btn-circle btn-warning bx bx-edit"
                                                     data-toggle="modal" data-target="#editProv"
+                                                    data-id="<?php echo $provee['CODIGO_PROVEEDOR']; ?>"
                                                     data-nombre="<?php echo $provee['NOMBRE_PROVEEDOR']; ?>" 
                                                     data-telefono="<?php echo $provee['TELEFONO']; ?>" 
                                                     data-direccion="<?php echo $provee['DIRECCION']; ?>" 
                                                     data-correo="<?php echo $provee['CORREO']; ?>" 
-                                                    onclick="editProduct(this)"></button>
+                                                    onclick="editProduct(this)">
+                                                </button>
                                                 <button type="button" class="btn btn-sm btn-circle btn-danger bx bx-trash"
-                                                data-toggle="modal" data-target="#deleteProv"></button>
+                                                    data-toggle="modal" 
+                                                    data-target="#deleteProv"
+                                                    data-id="<?php echo $provee['CODIGO_PROVEEDOR']; ?>"
+                                                    onclick="confirmDelete(this)">
+                                                </button>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -114,81 +120,92 @@ $provees = $ProveeController->index();
     </div>
 </div>
 
+<!-- Modal para Editar Proveedores -->
+<div class="modal fade" id="editProv" tabindex="-1" role="dialog" aria-labelledby="BotonEditar" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="BotonEditar">Editar Proveedor</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">Datos del Proveedor</div>
+            <form action="../controllers/ProveedoresController.php" method="POST">
+                <input type="hidden" name="action" value="update">
+                <input type="hidden" name="id" id="editId">
+                <div class="form-group">
+                    <label for="editNombre">Nombre</label>
+                    <input type="text" class="form-control" id="editNombre" name="nombre" placeholder="Nombre del Proveedor">
+                </div>
+                <div class="form-group">
+                    <label for="editTel">Teléfono</label>
+                    <input type="text" class="form-control" id="editTel" name="telefono" placeholder="Teléfono del Proveedor">
+                </div>
+                <div class="form-group">
+                    <label for="editDirec">Dirección</label>
+                    <input type="text" class="form-control" id="editDirec" name="direccion" placeholder="Dirección del Proveedor">
+                </div>
+                <div class="form-group">
+                    <label for="editCorreo">Correo</label>
+                    <input type="email" class="form-control" id="editCorreo" name="correo" placeholder="Correo del Proveedor">
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script>
 function editProduct(button) {
+    const id = button.getAttribute('data-id');
     const nombre = button.getAttribute('data-nombre');
     const telefono = button.getAttribute('data-telefono');
     const direccion = button.getAttribute('data-direccion');
     const correo = button.getAttribute('data-correo');
 
+    document.getElementById('editId').value = id;
     document.getElementById('editNombre').value = nombre;
     document.getElementById('editTel').value = telefono;
     document.getElementById('editDirec').value = direccion;
     document.getElementById('editCorreo').value = correo;
 }
-
 </script>
 
-<!-- Formulario para editar productos Btn-->
-<div class="modal fade" id="editProv" tabindex="-1" role="dialog" aria-labelledby="BotonEditar"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="BotonEditar">Editar Producto</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body text-center">Datos del Producto</div>
-                    <form class="user">
-                        <div>
-                            <div class="form-group"> Nombre
-                                <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="editNombre"
-                                    placeholder="Nombre del Proveedor">
-                            </div>
-                            <div class="form-group"> Telefono
-                                <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="editTel"
-                                    placeholder="Telefono del Proveedor">
-                            </div>
-                            <div class="form-group"> Direccion
-                                <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="editDirec"
-                                    placeholder="Direccion del proveedor">
-                            </div>
-                            <div class="form-group"> Correo
-                                <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="editCorreo"
-                                    placeholder="Correo del Proveedor">
-                            </div>
-                        </div>
-                    </form>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" action="" >Editar</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- Btn alerta para eliminar producto-->
-<div class="modal fade" id="deleteProv" tabindex="-1" role="dialog" aria-labelledby="btnEliminar"
-        aria-hidden="true">
+<!-- Modal para Confirmar Eliminación de Proveedor -->
+<div class="modal fade" id="deleteProv" tabindex="-1" role="dialog" aria-labelledby="btnEliminar" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="btnEliminar">¿Estas seguro de realizar esta accion?</h5>
+                <h5 class="modal-title" id="btnEliminar">¿Estás seguro de realizar esta acción?</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">Selecciona "Confirmar" para eliminar el proveedor deseado </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                <a class="btn btn-danger" action="">Confirmar</a>
-            </div>
+            <div class="modal-body">Selecciona "Confirmar" para eliminar el proveedor deseado.</div>
+            <form action="../controllers/ProveedoresController.php" method="POST">
+                <input type="hidden" name="action" value="delete">
+                <input type="hidden" name="id" id="deleteProviderId">
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
+<script>
+function confirmDelete(button) {
+    const providerId = button.getAttribute('data-id');
+    document.getElementById('deleteProviderId').value = providerId;
+}
+</script>
+
 
 <?php 
 require_once "parte_inferior.php"

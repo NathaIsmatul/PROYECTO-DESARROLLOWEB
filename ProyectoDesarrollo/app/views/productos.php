@@ -61,13 +61,15 @@ $products = $ProductosController->index();
 
                                             <button type="button" class="btn btn-sm btn-circle btn-warning bx bx-edit"
                                                 data-toggle="modal" data-target="#editProd"
+                                                data-id="<?php echo $product['CODIGO_PRODUCTO']; ?>"
                                                 data-nombre="<?php echo $product['NOMBRE_PRODUCTO']; ?>" 
                                                 data-descripcion="<?php echo $product['DESCRIPCION']; ?>" 
                                                 data-tipo="<?php echo $product['TIPO_PRODUCTO']; ?>" 
                                                 data-laboratorio="<?php echo $product['LABORATORIO']; ?>" 
                                                 data-costo="<?php echo $product['COSTO']; ?>" 
                                                 data-precio="<?php echo $product['PRECIO_VENTA']; ?>" 
-                                                onclick="editProduct(this)"></button>
+                                                onclick="editProduct(this)">
+                                            </button>
                                             <button type="button" class="btn btn-sm btn-circle btn-danger bx bx-trash"
                                                 data-toggle="modal" data-target="#deleteProd"
                                                 data-id="<?php echo $product['CODIGO_PRODUCTO']; ?>" 
@@ -84,16 +86,6 @@ $products = $ProductosController->index();
         </div>
     </div>
 </div>
-
-<script>
-function confirmDelete(button) {
-    const productId = button.getAttribute('data-id');
-    document.getElementById('deleteProductId').value = productId;
-}
-</script>
-
-
-
 
 <!-- /.container-fluid -->
 <!-- Formulario para agregar productos-->
