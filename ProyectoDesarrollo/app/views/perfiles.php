@@ -16,7 +16,7 @@ require_once "parte_superior.php";
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-sm-flex align-items-center justify-content-between mb-4">
                     <h6 class="m-0 font-weight-bold text-primary">Pefiles</h6>
-                    <Button class=" btn btn-sm btn-primary shadow-sm">
+                    <Button class=" btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addPerfil">
                         <i class="bx bxs-file-plus"></i>Agregar Perfil
                     </Button>
                 </div>
@@ -36,8 +36,12 @@ require_once "parte_superior.php";
                                         <!------llamada de datos ----->
 
                                         <td> <!--Esta debe quedar de ultimo para las acciones  ---->
-                                            <button type="button" class="btn btn-sm btn-circle btn-warning bx bx-edit"></button>
-                                            <button type="button" class="btn btn-sm btn-circle btn-danger bx bx-trash"></button>
+                                            <button type="button" class="btn btn-sm btn-circle btn-warning bx bx-edit"
+                                                data-toggle="modal" data-target="#editPerfil"
+                                                data-perfil="<?php echo $provee['PERFIL']; ?>" 
+                                                onclick="editProduct(this)"></button>
+                                            <button type="button" class="btn btn-sm btn-circle btn-danger bx bx-trash"
+                                                data-toggle="modal" data-target="#deletePerfil"></button>
                                         </td>
                                     </tr>
                                 <!-- fin de foreach---->
@@ -53,6 +57,91 @@ require_once "parte_superior.php";
 
 </div>
 <!-- /.container-fluid -->
+ <!-- Agregar Proveedores - Btn -->
+<div class="modal fade" id="addPerfil" tabindex="-1" role="dialog" aria-labelledby="BotonAgregar"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="BotonAgregar">Crear Perfil</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">Datos del perfil</div>
+                    <form class="user">
+                        <div>
+                            <div class="form-group"> Perfil
+                                <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="provNombre"
+                                    placeholder="Agregue un perfil nuevo">
+                            </div>
+                        </div>
+                    </form>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" action="" >Agregar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function editProduct(button) {
+    const perfil = button.getAttribute('data-perfil');
+    document.getElementById('editperfil').value = perfil;
+}
+
+</script>
+
+<!-- Formulario para editar productos Btn-->
+<div class="modal fade" id="editPerfil" tabindex="-1" role="dialog" aria-labelledby="BotonEditar"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="BotonEditar">Editar datos de Perfil</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">Datos del perfil</div>
+                    <form class="user">
+                        <div>
+                            <div class="form-group"> Perfil
+                                <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="editPerfil"
+                                    placeholder="Ingrese el nuevo perfil">
+                            </div>
+                        </div>
+                    </form>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" action="" >Editar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Btn alerta para eliminar producto-->
+<div class="modal fade" id="deletePerfil" tabindex="-1" role="dialog" aria-labelledby="btnEliminar"
+        aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="btnEliminar">¿Estas seguro de realizar esta accion?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Selecciona "Confirmar" para eliminar el Perfil deseado </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                <a class="btn btn-danger" action="">Confirmar</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 </div>
 <?php 

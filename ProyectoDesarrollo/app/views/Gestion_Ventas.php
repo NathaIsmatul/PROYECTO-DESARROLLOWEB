@@ -37,7 +37,8 @@ require_once "parte_superior.php";
                                         <!------llamada de datos ----->
 
                                         <td> <!--Esta debe quedar de ultimo para las acciones  ---->
-                                            <button type="button" class="btn btn-sm btn-circle btn-danger bx bx-trash"></button>
+                                            <button type="button" class="btn btn-sm btn-circle btn-danger bx bx-trash"
+                                            data-toggle="modal" data-target="#deleteVenta"></button>
                                         </td>
                                     </tr>
                                 <!-- fin de foreach---->
@@ -53,6 +54,25 @@ require_once "parte_superior.php";
 
 </div>
 <!-- /.container-fluid -->
+ <!-- Btn alerta para eliminar producto-->
+<div class="modal fade" id="deleteVenta" tabindex="-1" role="dialog" aria-labelledby="btnEliminar"
+        aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="btnEliminar">¿Estas seguro de realizar esta accion?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Selecciona "Confirmar" para eliminar esta venta realizada </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                <a class="btn btn-danger" action="">Confirmar</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 </div>
 <?php 
