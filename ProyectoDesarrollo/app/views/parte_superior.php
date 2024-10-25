@@ -22,6 +22,7 @@
 
     <!-- Custom styles for this template-->
     <link href="../static/css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/ColorTabla.css">
 
 </head>
 

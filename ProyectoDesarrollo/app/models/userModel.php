@@ -24,4 +24,9 @@ class UserModel {
         ");
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function deleteProduct($id) {
+        $stmt = $this->db->prepare("DELETE FROM USUARIOS WHERE CODIGO_USUARIO = :id");
+        return $stmt->execute([':id' => $id]);
+    }
 }

@@ -1,5 +1,8 @@
 <?php 
-require_once "parte_superior.php"
+require_once "parte_superior.php";
+require_once '../controllers/vencimientoController.php';
+$VencController = new VencController();
+$Vencimiento = $VencController->index();
 ?>
 
 <!-- Topbar -->
@@ -42,11 +45,22 @@ require_once "parte_superior.php"
                                     <th>Stock</th> 
                                     <th>Laboratorio</th> 
                                     <th>Proveedor</th>
-                                    <th>Fecha</th>
+                                    <th>Vencimiento</th>
+                                    <th>ESTADO</th>
                                 </tr>
                             </thead>
                             <tbody>
-
+                                <?php foreach ($Vencimiento as $venc): ?>
+                                    <tr class="<?php echo $venc['ESTADO'] == 'Vencido' ? 'table-dangercolor' : ($venc['ESTADO'] == 'Pronto a vencer' ? 'table-warningcolor' : ''); ?>">
+                                        <td><?php echo $venc['CODIGO_PRODUCTO']; ?></td>
+                                        <td><?php echo $venc['PRODUCTO']; ?></td>
+                                        <td><?php echo $venc['STOCK']; ?></td>
+                                        <td><?php echo $venc['LAB']; ?></td>
+                                        <td><?php echo $venc['PROVEEDOR']; ?></td>
+                                        <td><?php echo $venc['VENCIMIENTO']; ?></td>
+                                        <td><?php echo $venc['ESTADO']; ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>

@@ -58,7 +58,9 @@ $user = $UserController->index();
                                                 data-perfil="<?php echo $usuario['DES_PERFIL']; ?>"  
                                                 onclick="editProduct(this)"></button>
                                             <button type="button" class="btn btn-sm btn-circle btn-danger bx bx-trash"
-                                                data-toggle="modal" data-target="#deleteUser"></button>
+                                                data-toggle="modal" data-target="#deleteUser"
+                                                data-id="<?php echo $usuario['CODIGO_USUARIO']; ?>" 
+                                                onclick="confirmDelete(this)"></button>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -74,7 +76,7 @@ $user = $UserController->index();
 
 </div>
 <!-- /.container-fluid -->
- <!-- Agregar Proveedores - Btn -->
+ <!-- Agregar Usuario - Btn -->
 <div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="BotonAgregar"
         aria-hidden="true">
         <div class="modal-dialog" role="document">

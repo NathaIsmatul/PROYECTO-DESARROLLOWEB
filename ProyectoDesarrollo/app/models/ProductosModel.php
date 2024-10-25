@@ -14,6 +14,7 @@ class ProductModel {
             SELECT 
                 p.CODIGO_PRODUCTO, 
                 p.NOMBRE_PRODUCTO, 
+                COALESCE(SUM(lt.UNID_ENTRANTES), 0) AS STOCK,
                 p.DESCRIPCION, 
                 tp.TIP AS TIPO_PRODUCTO, 
                 l.NOMBRE AS LABORATORIO, 
@@ -22,6 +23,16 @@ class ProductModel {
             FROM PRODUCTOS p
             JOIN TIPO_PRODUCTO tp ON p.ID_TIPO_PRODUCTO = tp.CODIGO_TPRODUCTO
             JOIN LABORATORIO l ON p.ID_LABORATORIO = l.CODIGO_LABORATORIO
+            LEFT JOIN LOTES_INVENTARIO lt ON p.CODIGO_PRODUCTO = lt.ID_PRODUCTO AND lt.VENCIMIENTO > GETDATE() -- Filtrar aquí los lotes no vencidos
+            WHERE lt.VENCIMIENTO IS NULL OR lt.VENCIMIENTO > GETDATE() 
+            GROUP BY 
+                p.CODIGO_PRODUCTO, 
+                p.NOMBRE_PRODUCTO, 
+                p.DESCRIPCION, 
+                tp.TIP, 
+                l.NOMBRE, 
+                p.COSTO, 
+                p.PRECIO_VENTA;
         ");
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }

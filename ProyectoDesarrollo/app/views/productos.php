@@ -35,6 +35,7 @@ $products = $ProductosController->index();
                                 <tr>    
                                     <th>ID</th>
                                     <th>Nombre de Producto</th>
+                                    <th>Stock</th>
                                     <th>Descripcion</th>
                                     <th>Tipo de Producto</th>
                                     <th>Laboratorio</th>
@@ -48,6 +49,7 @@ $products = $ProductosController->index();
                                     <tr>
                                         <td><?php echo $product['CODIGO_PRODUCTO']; ?></td>
                                         <td><?php echo $product['NOMBRE_PRODUCTO']; ?></td>
+                                        <td><?php echo $product['STOCK']; ?></td>
                                         <td><?php echo $product['DESCRIPCION']; ?></td>
                                         <td><?php echo $product['TIPO_PRODUCTO']; ?></td>
                                         <td><?php echo $product['LABORATORIO']; ?></td>
@@ -136,7 +138,7 @@ $products = $ProductosController->index();
     </div>
 </div>
 
-<!-- Formuario para tomar nombre del producto-->
+<!-- Funcion para tomar nombre del producto-->
 <script>
 function setProductName(button) {
     const productName = button.getAttribute('data-nombre');
