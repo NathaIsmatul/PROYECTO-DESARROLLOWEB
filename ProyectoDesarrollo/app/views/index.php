@@ -21,7 +21,7 @@ require_once "parte_superior.php"
 
 <div class="container-fluid">
 
-    <h1 class="h3 mb-3 text-gray-800">Catalogo</h1>
+    <h1 class="h3 mb-3 text-gray-800">Kardex</h1>
 
     <!-- Content Row -->
     <div class="row">
