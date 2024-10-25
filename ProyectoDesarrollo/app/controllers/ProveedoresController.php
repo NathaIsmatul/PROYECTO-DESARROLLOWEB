@@ -25,7 +25,7 @@ class ProveeController {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $controller = new ProveeController();
         if ($_POST['action'] === 'update') {
-            $controller->update($_POST['id'], $_POST['nombre'], $_POST['telefono'], $_POST['dirección'], $_POST['correo']);
+            $controller->update($_POST['id'], $_POST['nombre'], $_POST['telefono'], $_POST['direccion'], $_POST['correo']);
         } elseif ($_POST['action'] === 'delete') {
             $controller->delete($_POST['id']);
         }
