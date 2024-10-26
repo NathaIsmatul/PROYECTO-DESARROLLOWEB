@@ -32,4 +32,3 @@ class ProveeController {
         header("Location: ../views/proveedores.php");
         exit;
     }
-
