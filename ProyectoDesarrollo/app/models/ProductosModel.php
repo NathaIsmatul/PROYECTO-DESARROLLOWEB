@@ -9,6 +9,26 @@ class ProductModel {
         $this->db = $database->conn; // Acceder directamente a la conexión establecida
     }
 
+    public function getTproducts() {
+        $sql = $this->db->query("
+            SELECT 
+                CODIGO_TPRODUCTO,
+                TIP
+            FROM TIPO_PRODUCTO
+        ");
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getLab() {
+        $sql = $this->db->query("
+            SELECT 
+                CODIGO_LABORATORIO,
+                NOMBRE
+            FROM LABORATORIO
+        ");
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getProducts() {
         $sql = $this->db->query("
             SELECT 
@@ -35,6 +55,54 @@ class ProductModel {
                 p.PRECIO_VENTA;
         ");
         return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function addProduct($nombre, $descripcion, $tipo, $laboratorio, $costo, $precio) {
+        try {
+            // Paso 1: Buscar el ID del tipo de producto por su nombre
+            $tipoSql = "SELECT CODIGO_TPRODUCTO FROM TIPO_PRODUCTO WHERE TIP = :tipo";
+            $tipoStmt = $this->db->prepare($tipoSql);
+            $tipoStmt->bindParam(':tipo', $tipo);
+            $tipoStmt->execute();
+            $tipoRow = $tipoStmt->fetch(PDO::FETCH_ASSOC);
+    
+            if (!$tipoRow) {
+                throw new Exception("Tipo de producto no encontrado: $tipo");
+            }
+            $tipoId = $tipoRow['CODIGO_TPRODUCTO'];
+    
+            // Paso 2: Buscar el ID del laboratorio por su nombre
+            $labSql = "SELECT CODIGO_LABORATORIO FROM LABORATORIO WHERE NOMBRE = :laboratorio";
+            $labStmt = $this->db->prepare($labSql);
+            $labStmt->bindParam(':laboratorio', $laboratorio);
+            $labStmt->execute();
+            $labRow = $labStmt->fetch(PDO::FETCH_ASSOC);
+    
+            if (!$labRow) {
+                throw new Exception("Laboratorio no registrado: $laboratorio");
+            }
+            $labId = $labRow['CODIGO_LABORATORIO'];
+    
+            // Paso 3: Insertar el producto utilizando los IDs encontrados
+            $insertSql = "INSERT INTO PRODUCTOS (NOMBRE_PRODUCTO, DESCRIPCION, ID_TIPO_PRODUCTO, ID_LABORATORIO, COSTO, PRECIO_VENTA)
+                          VALUES (:nombre, :descripcion, :tipoId, :labId, :costo, :precio)";
+            $stmt = $this->db->prepare($insertSql);
+            $stmt->bindParam(':nombre', $nombre);
+            $stmt->bindParam(':descripcion', $descripcion);
+            $stmt->bindParam(':tipoId', $tipoId);
+            $stmt->bindParam(':labId', $labId);
+            $stmt->bindParam(':costo', $costo);
+            $stmt->bindParam(':precio', $precio);
+            
+    
+            return $stmt->execute(); // Ejecuta la consulta y retorna el resultado
+        } catch (PDOException $e) {
+            echo "Error en la base de datos: " . $e->getMessage();
+            return false;
+        } catch (Exception $e) {
+            echo "Error: " . $e->getMessage();
+            return false;
+        }
     }
 
     public function updateProduct($id, $nombre, $descripcion, $tipo, $laboratorio, $costo, $precio) {

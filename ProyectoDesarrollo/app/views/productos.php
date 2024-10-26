@@ -6,6 +6,8 @@ require_once '../controllers/ProductosController.php';
 $ProductosController = new ProductController();
 
 $products = $ProductosController->index();
+$Ptipo = $ProductosController->Tproducto();
+$laboratorio = $ProductosController->laboratorio();
 ?>
 
 <!-- Begin Page Content -->
@@ -91,49 +93,54 @@ $products = $ProductosController->index();
 
 <!-- /.container-fluid -->
 <!-- Formulario para agregar productos-->
-<div class="modal fade" id="addProd" tabindex="-1" role="dialog" aria-labelledby="BotonAgregar"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="BotonAgregar">Agregar Productos</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
+<div class="modal fade" id="addProd" tabindex="-1" role="dialog" aria-labelledby="BotonAgregar" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="BotonAgregar">Crear Perfil</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">Datos del perfil</div>
+            <form action="../controllers/ProductosController.php" method="POST">
+                <input type="hidden" name="action" value="add"> <!-- Este campo es importante -->
+                <div class="form-group">
+                    <label for="addNombre">Nombre</label>
+                    <input type="text" class="form-control" id="addNombre"
+                           name="nombre" placeholder="Nombre del Producto" required>
                 </div>
-                <div class="modal-body text-center">Datos del Producto</div>
-                    <form class="user">
-                        <div>
-                            <div class="form-group"> Nombre
-                                <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="prodNombre"
-                                    placeholder="Nombre del Producto">
-                            </div>
-                            <div class="form-group"> Descripcion
-                                <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="prodDescrip"
-                                    placeholder="Descripcion del Producto">
-                            </div>
-                            <div class="form-group"> Tipo de Producto
-                                <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="prodTipo"
-                                    placeholder="Tipo">
-                            </div>
-                            <div class="form-group"> Laboratorio
-                                <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="prodLab"
-                                    placeholder="Laboratorio de Origen">
-                            </div>
-                            <div class="form-group"> Costo
-                                <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="prodCosto"
-                                    placeholder="Ingrese Costo">
-                            </div>
-                            <div class="form-group"> Precio de Venta
-                                <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="prodVenta"
-                                    placeholder="Ingrese Precio">
-                        </div>
-                    </form>
+                <div class="form-group">
+                    <label for="addDescripcion">Descripcion</label>
+                    <input type="text" class="form-control" id="addDescrip"
+                           name="descripcion" placeholder="Descripcion del Producto" required>
+                </div>
+                <div class="form-group">
+                    <label for="tipo">Tipo del Producto</label>
+                    <input type="text" class="form-control" id="addTipo"
+                           name="tipo" placeholder="Ingrese el tipo" required>        
+                </div>
+                
+                <div class="form-group">
+                    <label for="addLab">Laboratorio</label>
+                    <input type="text" class="form-control" id="addLab"
+                           name="laboratorio" placeholder="Laboratorio de Origen" required>
+                </div>
+                <div class="form-group">
+                    <label for="addCosto">Costo</label>
+                    <input type="text" class="form-control" id="addCosto"
+                           name="costo" placeholder="Ingrese Costo" required>
+                </div>
+                <div class="form-group">
+                    <label for="addVenta">Precio de Venta</label>
+                    <input type="text" class="form-control" id="addVenta"
+                           name="venta" placeholder="Ingrese Precio" required>
+                </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" action="" >Agregar</a>
+                    <button type="submit" class="btn btn-primary">Agregar</button> <!-- El botón debe ser type="submit" -->
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

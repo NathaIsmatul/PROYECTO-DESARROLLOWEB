@@ -40,10 +40,13 @@ $perfil = $PerfilController->index();
                                         <td> <!--Esta debe quedar de ultimo para las acciones  ---->
                                             <button type="button" class="btn btn-sm btn-circle btn-warning bx bx-edit"
                                                 data-toggle="modal" data-target="#editPerfil"
-                                                data-perfil="<?php echo $perfil['DESCRIPCION']; ?>" 
+                                                data-id="<?php echo $perfil['CODIGO_PERFIL']; ?>"
+                                                data-descripcion="<?php echo $perfil['DESCRIPCION']; ?>" 
                                                 onclick="editPerfil(this)"></button>
                                             <button type="button" class="btn btn-sm btn-circle btn-danger bx bx-trash"
-                                                data-toggle="modal" data-target="#deletePerfil"></button>
+                                                data-toggle="modal" data-target="#deletePerfil"
+                                                data-id="<?php echo $perfil['CODIGO_PERFIL']; ?>"
+                                                onclick="confirmDelete(this)"></button>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -57,90 +60,103 @@ $perfil = $PerfilController->index();
     </div>
 </div>
 <!-- /.container-fluid -->
- <!-- Agregar Proveedores - Btn -->
-<div class="modal fade" id="addPerfil" tabindex="-1" role="dialog" aria-labelledby="BotonAgregar"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="BotonAgregar">Crear Perfil</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
+ <!-- Agregar perfiles - Btn -->
+ <div class="modal fade" id="addPerfil" tabindex="-1" role="dialog" aria-labelledby="BotonAgregar" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="BotonAgregar">Crear Perfil</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">Datos del perfil</div>
+            <form action="../controllers/perfilControllers.php" method="POST">
+                <input type="hidden" name="action" value="add"> <!-- Este campo es importante -->
+                <div class="form-group">
+                    <label for="addPerfil">Perfil</label>
+                    <input type="text" class="form-control" id="addPerfil"
+                           name="descripcion" placeholder="Agregue un perfil nuevo" required>
                 </div>
-                <div class="modal-body text-center">Datos del perfil</div>
-                    <form class="user">
-                        <div>
-                            <div class="form-group"> Perfil
-                                <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="provNombre"
-                                    placeholder="Agregue un perfil nuevo">
-                            </div>
-                        </div>
-                    </form>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" action="" >Agregar</a>
+                    <button type="submit" class="btn btn-primary">Agregar</button> <!-- El botón debe ser type="submit" -->
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
 
 <script>
 function editPerfil(button) {
-    const perfil = button.getAttribute('data-perfil');
-    document.getElementById('editperfil').value = perfil;
+    const Idperfil = button.getAttribute('data-id');
+    const descripcion = button.getAttribute('data-descripcion');
+
+    document.getElementById('editId').value = Idperfil;
+    document.getElementById('edit-perfil').value = descripcion;
 }
 </script>
 
 <!-- Formulario para editar productos Btn-->
-<div class="modal fade" id="editPerfil" tabindex="-1" role="dialog" aria-labelledby="BotonEditar"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="BotonEditar">Editar datos de Perfil</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body text-center">Datos del perfil</div>
-                    <form class="user">
-                        <div>
-                            <div class="form-group"> Perfil
-                                <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="editperfil"
-                                    placeholder="Ingrese el nuevo perfil">
-                            </div>
-                        </div>
-                    </form>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" action="" >Editar</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Btn alerta para eliminar producto-->
-<div class="modal fade" id="deletePerfil" tabindex="-1" role="dialog" aria-labelledby="btnEliminar"
-        aria-hidden="true">
+<div class="modal fade" id="editPerfil" tabindex="-1" role="dialog" aria-labelledby="BotonEditar" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="btnEliminar">¿Estas seguro de realizar esta accion?</h5>
+                <h5 class="modal-title" id="BotonEditar">Editar Producto</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">Selecciona "Confirmar" para eliminar el Perfil deseado </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                <a class="btn btn-danger" action="">Confirmar</a>
-            </div>
+            <div class="modal-body text-center">Datos del Producto</div>
+            <form action="../controllers/perfilControllers.php" method="POST">
+                <input type="hidden" name="action" value="update">
+                <input type="hidden" name="id" id="editId">
+                <div class="form-group">
+                    <label for="editNombre">Perfil</label>
+                    <input type="text" class="form-control" id="edit-perfil" name="descripcion"
+                    placeholder="Asigne Perfil">
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
+
+<!-- Funcion para la toma de datos -->
+<script>
+function confirmDelete(button) {
+    const perfilId = button.getAttribute('data-id');
+    document.getElementById('deletePerfilId').value = perfilId;
+}
+</script>
+
+<!-- Modal para Confirmar Eliminación -->
+<div class="modal fade" id="deletePerfil" tabindex="-1" role="dialog" aria-labelledby="botonEliminar" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="botonEliminar">Eliminar Producto</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">¿Estás seguro de que deseas eliminar este producto?</div>
+            <form action="../controllers/perfilControllers.php" method="POST">
+                <input type="hidden" name="action" value="delete">
+                <input type="hidden" name="id" id="deletePerfilId">
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 </div>
 <?php 
