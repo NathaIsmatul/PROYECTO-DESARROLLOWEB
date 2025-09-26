@@ -27,7 +27,10 @@
                     header('Location: ../views/index.php');
                     break;
                 case 2:
-                    header('Location: ../Vista/Tec_catalogo.php');
+                    header('Location: ../views/index.php');
+                    break;
+                case 3:
+                    header('Location: ../views/V_empleado.php');
                     break;
             }
         }else{

@@ -51,7 +51,8 @@ $user = $UserController->index();
                                         <td> <!--Esta debe quedar de ultimo para las acciones  ---->
                                             <button type="button" class="btn btn-sm btn-circle btn-warning bx bx-edit"
                                                 data-toggle="modal" data-target="#editUser"
-                                                data-usuario="<?php echo $usuario['USUARIO']; ?>" 
+                                                data-id="<?php echo $usuario['CODIGO_USUARIO']; ?>"
+                                                data-user="<?php echo $usuario['USUARIO']; ?>" 
                                                 data-nombre="<?php echo $usuario['NOMBRE']; ?>" 
                                                 data-apellido="<?php echo $usuario['APELLIDO']; ?>" 
                                                 data-clave="<?php echo $usuario['CLAVE']; ?>"
@@ -127,13 +128,15 @@ $user = $UserController->index();
 
 <script>
 function editProduct(button) {
-    const username = button.getAttribute('data-usuario');
+    const id = button.getAttribute('data-id');
+    const user = button.getAttribute('data-user');
     const nombre = button.getAttribute('data-nombre');
     const apellido = button.getAttribute('data-apellido');
     const contraseña = button.getAttribute('data-clave');
     const perfil = button.getAttribute('data-perfil');;
 
-    document.getElementById('editName').value = username;
+    document.getElementById('editId').value = id;
+    document.getElementById('editUsuario').value = user;
     document.getElementById('editNombre').value = nombre;
     document.getElementById('editApellido').value = apellido;
     document.getElementById('editPass').value = contraseña;
@@ -143,49 +146,54 @@ function editProduct(button) {
 </script>
 
 <!-- Formulario para editar productos Btn-->
-<div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="BotonEditar"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="BotonEditar">Editar datos de Usuario</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
+<div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="BotonEditar" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="BotonEditar">Editar datos de Usuario</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">Datos del Usuario</div>
+            <form action="../controllers/userController.php" method="POST">
+                <input type="hidden" name="action" value="update">
+                <input type="hidden" name="id" id="editId">
+                <div class="form-group">
+                    <label for="editUser">Username</label>
+                    <input type="text" class="form-control" id="editUsuario" name="user" placeholder="Nombre de Usuario">
                 </div>
-                <div class="modal-body text-center">Datos del Producto</div>
-                    <form class="user">
-                        <div>
-                        <div class="form-group"> Username
-                                <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="editName"
-                                    placeholder="Ingresa nombre de Usuario">
-                            </div>
-                            <div class="form-group"> Nombre
-                                <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="editNombre"
-                                    placeholder="Nombre del Usuario">
-                            </div>
-                            <div class="form-group"> Apellido
-                                <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="editApellido"
-                                    placeholder="Apellido del Usuario">
-                            </div>
-                            <div class="form-group"> Contraseña
-                                <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="editPass"
-                                    placeholder="Ingrese Contraseña">
-                            </div>
-                            <div class="form-group"> Perfil
-                                <input type="text" class="form-control form-control-user col-sm-8 mb-3 mb-sm-0" id="editPerfil"
-                                    placeholder="Perfil del Usuario">
-                            </div>
-                        </div>
-                    </form>
+                <div class="form-group">
+                    <label for="editNombre">Nombre</label>
+                    <input type="text" class="form-control" id="editNombre" name="nombre" placeholder="Nombre del usuario">
+                </div>
+                <div class="form-group">
+                    <label for="editApellido">Apellido</label>
+                    <input type="text" class="form-control" id="editApellido" name="apellido" placeholder="Apellido del usuario">
+                </div>
+                <div class="form-group">
+                    <label for="editPass">Contraseña</label>
+                    <input type="text" class="form-control" id="editPass" name="clave" placeholder="Ingrese la contraseña">
+                </div>
+                <div class="form-group">
+                    <label for="editPerfil">Perfil</label>
+                    <input type="text" class="form-control" id="editPerfil" name="perfil" placeholder="Perfil a cambiar">
+                </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" action="" >Editar</a>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
+
+<script>
+function confirmDelete(button) {
+    const productId = button.getAttribute('data-id');
+    document.getElementById('deleteProductId').value = productId;
+}
+</script>
 
 <!-- Btn alerta para eliminar producto-->
 <div class="modal fade" id="deleteUser" tabindex="-1" role="dialog" aria-labelledby="btnEliminar"
@@ -199,10 +207,14 @@ function editProduct(button) {
                 </button>
             </div>
             <div class="modal-body">Selecciona "Confirmar" para eliminar el usuario deseado </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                <a class="btn btn-danger" action="">Confirmar</a>
-            </div>
+            <form action="../controllers/userController.php" method="POST">
+                <input type="hidden" name="action" value="delete">
+                <input type="hidden" name="id" id="deleteProductId">
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

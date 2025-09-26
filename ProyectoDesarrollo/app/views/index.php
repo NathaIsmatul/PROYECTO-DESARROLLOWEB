@@ -24,7 +24,7 @@ $Vencimiento = $VencController->index();
 
 <div class="container-fluid">
 
-    <h1 class="h3 mb-3 text-gray-800">Kardex</h1>
+    <h1 class="h3 mb-3 text-gray-800">Liquidaciones</h1>
 
     <!-- Content Row -->
     <div class="row">

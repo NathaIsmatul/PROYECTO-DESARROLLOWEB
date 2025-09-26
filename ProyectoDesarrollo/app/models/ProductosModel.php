@@ -24,10 +24,11 @@ class ProductModel {
             SELECT 
                 CODIGO_LABORATORIO,
                 NOMBRE
-            FROM LABORATORIO
+            FROM LABORATORIO    
         ");
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
+
 
     public function getProducts() {
         $sql = $this->db->query("
